@@ -6,7 +6,7 @@ import EmployeeTile from './EmployeeTile';
 import EmployeeDetailModal from './EmployeeDetailModal';
 import EmployeeEditModal from './EmployeeEditModal';
 import { useAuth } from '../../hooks/useAuth';
-import type { Employee } from '../../types';
+import type { Employee, EmployeesResponse, SearchEmployeesResponse } from '../../types';
 
 const EmployeeGrid: React.FC = () => {
     const { user } = useAuth();
@@ -21,7 +21,7 @@ const EmployeeGrid: React.FC = () => {
     const [isSearching, setIsSearching] = useState(false);
     const itemsPerPage = 5;
 
-    const { loading, error, data } = useQuery(GET_EMPLOYEES, {
+    const { loading, error, data } = useQuery<EmployeesResponse>(GET_EMPLOYEES, {
         variables: {
             limit: itemsPerPage,
             offset: (currentPage - 1) * itemsPerPage,
@@ -31,7 +31,7 @@ const EmployeeGrid: React.FC = () => {
         skip: isSearching
     });
 
-    const [searchEmployees, { loading: searchLoading, data: searchData }] = useLazyQuery(SEARCH_EMPLOYEES);
+    const [searchEmployees, { loading: searchLoading, data: searchData }] = useLazyQuery<SearchEmployeesResponse>(SEARCH_EMPLOYEES);
 
     const [deleteEmployee] = useMutation(DELETE_EMPLOYEE, {
         refetchQueries: [

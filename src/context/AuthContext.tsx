@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useMutation } from '@apollo/client/react';
 import { LOGIN } from '../graphql/mutations';
-import type { User } from '../types';
+import type { User, LoginResponse } from '../types';
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -21,7 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const [loginMutation] = useMutation(LOGIN);
+  const [loginMutation] = useMutation<LoginResponse>(LOGIN);
 
   const login = async (username: string, password: string) => {
     try {

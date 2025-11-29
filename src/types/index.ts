@@ -19,3 +19,23 @@ export interface AuthContextType {
     logout: () => void;
     isAuthenticated: boolean;
 }
+
+export interface EmployeesResponse {
+    employees: Employee[];
+    totalEmployees: number;
+}
+
+export interface SearchEmployeesResponse {
+    searchEmployees: {
+        employees: Employee[];
+        total: number;
+        hasMore: boolean;
+    };
+}
+
+export interface LoginResponse {
+    login: {
+        token: string;
+        user: User;
+    };
+}
